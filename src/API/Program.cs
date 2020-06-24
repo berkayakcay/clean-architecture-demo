@@ -20,6 +20,7 @@ namespace API
                 {
                     var context = services.GetRequiredService<DataContext>();
                     context.Database.Migrate();
+                    Seed.SeedData(context);
                 }
                 catch (System.Exception e)
                 {
@@ -27,15 +28,18 @@ namespace API
                     logger.LogError(e, "An error occured during migration");
                 }
             }
-            
+
             host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
+                .ConfigureLogging(option =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    option.ClearProviders();
+                    option.AddConsole();
+                    option.AddDebug();
                 });
     }
 }
