@@ -40,5 +40,14 @@ namespace API.Controllers
             var unit = await _mediator.Send(command);
             return Ok(unit);
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(Unit), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Edit([FromRoute] Guid id, [FromBody] Edit.Command command)
+        {
+            command.Id = id;
+            var unit = await _mediator.Send(command);
+            return Ok(unit);
+        }
     }
 }
