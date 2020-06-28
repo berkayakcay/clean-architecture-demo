@@ -13,30 +13,14 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "types": [
-      "jest"
-    ],
-    "lib": [
-      "esnext",
-      "es6",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ],
+    "types": ["jest"],
+    "lib": ["esnext", "es6", "dom", "dom.iterable", "scripthost"],
     "allowJs": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "extends": "./tsconfig.paths.json"
+  "include": ["src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts", "tests/**/*.tsx"],
+  "exclude": ["node_modules"]
 }
