@@ -1,3 +1,6 @@
+using System;
+using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Activities;
 using MediatR;
@@ -16,12 +19,26 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        // GET
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> List(CancellationToken ct)
         {
-            var activities = await _mediator.Send(new List.Query());
+            var activities = await _mediator.Send(new List.Query(), ct);
             return Ok(activities);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Details([FromRoute] Guid id)
+        {
+            var activity = await _mediator.Send(new Details.Query() { Id = id });
+            return Ok(activity);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(Unit), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Create([FromBody] Create.Command command)
+        {
+            var unit = await _mediator.Send(command);
+            return Ok(unit);
         }
     }
 }

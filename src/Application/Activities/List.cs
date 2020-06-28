@@ -23,9 +23,9 @@ namespace Application.Activities
                 _context = context;
             }
 
-            public async Task<List<Activity>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<Activity>> Handle(Query request, CancellationToken ct)
             {
-                var activities = await _context.Activity.ToListAsync();
+                var activities = await _context.Activity.ToListAsync(ct);
                 return activities;
             }
         }
