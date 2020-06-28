@@ -1,21 +1,28 @@
-import React from "react";
-import { Header, Icon, List } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Header, List } from "semantic-ui-react";
 import axios from "axios";
+import { IActivity } from "../models/activity";
 
-function App() {
-  axios.get("https://localhost:5001/WeatherForecast").then((response: any) => {
-    console.log(response);
-  });
+const App = () => {
+  const [activities, setActivities] = useState<IActivity[]>([]);
+  useEffect(() => {
+    axios
+      .get<IActivity[]>("https://localhost:5001/api/activities")
+      .then((response) => {
+        setActivities(response.data);
+      });
+  }, []);
+
   return (
     <div>
       <Header as="h2" icon="users" content="Insurers" />
       <List>
-        <List.Item>Apples</List.Item>
-        <List.Item>Pears</List.Item>
-        <List.Item>Oranges</List.Item>
+        {activities.map((activity) => (
+          <List.Item key={activity.id}>{activity.title}</List.Item>
+        ))}
       </List>
     </div>
   );
-}
+};
 
 export default App;
