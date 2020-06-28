@@ -49,5 +49,16 @@ namespace API.Controllers
             var unit = await _mediator.Send(command);
             return Ok(unit);
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(Unit), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Edit([FromRoute] Guid id)
+        {
+            var unit = await _mediator.Send(new Delete.Command
+            {
+                Id = id
+            });
+            return Ok(unit);
+        }
     }
 }
