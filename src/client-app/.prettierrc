@@ -1,0 +1,13 @@
+{
+    "singleQuote": true,
+    "trailingComma": "none",
+    "printWidth": 160,
+    "tabWidth": 2,
+    "semi": false,
+    "overrides": [{
+      "files": ".prettierrc",
+      "options": {
+        "parser": "typescript"
+      }
+    }]
+  }
